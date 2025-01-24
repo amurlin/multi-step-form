@@ -1,5 +1,5 @@
 import React from 'react';
-import { isStepOneValid } from '@/utils/stepOneValidation';
+import isStepOneValid from '@/utils/stepOneValidation';
 import InputSection from './InputSection';
 
 
@@ -19,6 +19,13 @@ const StepOne = (props) => {
       const { isValid, errors } = isStepOneValid(formValue);
 
       if (isValid){
+        const localData = {
+            ...formValue,
+            currenStep: 1,
+        }
+
+        localStorage.setItem("formData", JSON.stringify(localData));
+
         handleNextStep();
       }
       handleError(errors);
@@ -34,9 +41,9 @@ const StepOne = (props) => {
           <p className='text-[18px] font-normal text-[#8E8E8E] '>Please provide all current information accurately.</p>
         </div>
         <div className='mt-[28px] flex flex-col gap-[12px] '>
-            <InputSection handleChange={handleChange} errors={errors} question={"First name"} name={"firstName"} placeholder={"Your first name"} value={formValue.firstName} />
-            <InputSection handleChange={handleChange} errors={errors} question={"Last name"} name={"lastName"} placeholder={"Your second name"} value={formValue.lastName} />
-            <InputSection handleChange={handleChange} errors={errors} question={"User name"} name={"userName"} placeholder={"Your username"} value={formValue.userName} />
+            <InputSection handleChange={handleChange} errors={errors.firstName} title={"First name"} name={"firstName"} placeholder={"Your first name"} value={formValue.firstName} />
+            <InputSection handleChange={handleChange} errors={errors.lastName} title={"Last name"} name={"lastName"} placeholder={"Your second name"} value={formValue.lastName} />
+            <InputSection handleChange={handleChange} errors={errors.userName} title={"User name"} name={"userName"} placeholder={"Your username"} value={formValue.userName} />
 
 
             {/* <div className='w-[416px] h-[68px] flex flex-col '>

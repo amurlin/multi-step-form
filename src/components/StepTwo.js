@@ -1,16 +1,17 @@
 import React from 'react'
-import { isStepOneValid } from '@/utils/stepOneValidation';
+import isStepOneValid from '@/utils/stepOneValidation';
 import InputSection from './InputSection';
 
 const StepTwo = (props) => {
-    const {handleNextStep, handleBackStep, errors, formValue, handleError, setFormValue} = props;
+    const {handleNextStep, handleBackStep, errors, formValue, handleError, setFormValue, clearError} = props;
 
     const handleChange = (event) => {
       const {name, value} = event.target;
       setFormValue((prev) => ({
         ...prev,
         [name]: value,
-      }))
+      }));
+      clearError(name);
     };
 
     const handleFormNextStep = () => {
@@ -32,10 +33,10 @@ const StepTwo = (props) => {
       </div>
       <div className='mt-[28px] flex flex-col gap-[12px] '>
 
-            <InputSection handleChange={handleChange} errors={errors} question={"Email"} name={"email"} placeholder={"Your email"} />
-            <InputSection handleChange={handleChange} errors={errors} question={"Phone number"} name={"phoneNumber"} placeholder={"Your phone number"} />
-            <InputSection handleChange={handleChange} errors={errors} question={"Password"} name={"password"} placeholder={"Your password"} />
-            <InputSection handleChange={handleChange} errors={errors} question={"Confirm password"} name={"confirmPassword"} placeholder={"Confirm password"} /> 
+            <InputSection handleChange={handleChange} errors={errors} title={"Email"} name={"email"} placeholder={"Your email"} />
+            <InputSection handleChange={handleChange} errors={errors} title={"Phone number"} name={"phoneNumber"} placeholder={"Your phone number"} />
+            <InputSection handleChange={handleChange} errors={errors} title={"Password"} name={"password"} placeholder={"Your password"} />
+            <InputSection handleChange={handleChange} errors={errors} title={"Confirm password"} name={"confirmPassword"} placeholder={"Confirm password"} /> 
       </div>
       </div>
       <div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
@@ -53,6 +53,11 @@ const MultiStepForm = () => {
       setCurrentStep((prevStep) => prevStep - 1);
     }
   };
+
+  useEffect (() => {
+    const data = localStorage.getItem("formData");
+    console.log(JSON.parse(data));
+  }, [])
 
   return (
     <div>
