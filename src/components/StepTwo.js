@@ -1,6 +1,10 @@
 import React from 'react'
 import isStepOneValid from '@/utils/stepOneValidation';
 import InputSection from './InputSection';
+import { ContinueButton } from './ContinueButton';
+import { BackButton } from './BackButton';
+// import Image from 'next/image';
+
 
 const StepTwo = (props) => {
     const {handleNextStep, handleBackStep, errors, formValue, handleError, setFormValue, clearError} = props;
@@ -15,13 +19,21 @@ const StepTwo = (props) => {
     };
 
     const handleFormNextStep = () => {
-          const { isValid, errors } = isStepOneValid(formValue);
+      const { isValid, errors } = isStepOneValid(formValue);
+
+      if (isValid){
+        const localData = {
+            ...formValue,
+            currentStep: 1,
+        }
+
+        localStorage.setItem("formData", JSON.stringify(localData));
+
+        handleNextStep();
+      }
+      handleError(errors);
+    };
     
-          if (isValid){
-            handleNextStep();
-          }
-          handleError(errors);
-        };
   return (
     <div className='h-screen w-full flex justify-center items-center bg-[#F4F4F4]'>
     <div className='w-[480px] h-[655px] p-[32px] bg-white flex flex-col justify-between rounded-[8px]'>
@@ -39,13 +51,9 @@ const StepTwo = (props) => {
             <InputSection handleChange={handleChange} errors={errors} title={"Confirm password"} name={"confirmPassword"} placeholder={"Confirm password"} /> 
       </div>
       </div>
-      <div>
-          <button onClick={handleFormNextStep} className='w-full h-[44px] bg-[#121316] rounded-[6px] flex flex-row justify-center items-center gap-[4px] text-[#FFFFFF] -bottom-0'>
-            <p>Continue</p>
-            <div>2/3</div>
-            <div></div>
-          </button>
-          <button onClick={handleBackStep}>Back</button>
+      <div className='flex flex-row gap-[5px]'>
+          <BackButton handleBackStep={handleBackStep} />
+          <ContinueButton handleFormNextStep={handleFormNextStep} />
       </div>
     </div>
   </div>

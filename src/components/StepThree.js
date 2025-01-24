@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import InputSection from './InputSection';
 import isStepOneValid from '@/utils/stepOneValidation';
 import Image from 'next/image';
+import { ContinueButton } from './ContinueButton';
+import { BackButton } from './BackButton';
 
 const StepThree = (props) => {
     const {handleNextStep, handleBackStep, errors, formValue, handleError, setFormValue, clearError} = props;
@@ -13,13 +15,20 @@ const StepThree = (props) => {
         ...prev,
         [name]: value,
       }));
-      clearError(name)
+      clearError(name);
     };
 
     const handleFormNextStep = () => {
       const { isValid, errors } = isStepOneValid(formValue);
 
       if (isValid){
+        const localData = {
+            ...formValue,
+            currentStep: 1,
+        }
+
+        localStorage.setItem("formData", JSON.stringify(localData));
+
         handleNextStep();
       }
       handleError(errors);
@@ -37,9 +46,9 @@ const StepThree = (props) => {
 
       setFormValue((prev) => ({
         ...prev,
-        profileImg: file,
+        profileImage: file,
       }));
-    }
+    };
 
     const handleImageRemove = () => {
       setSelectedImg(null);
@@ -48,7 +57,7 @@ const StepThree = (props) => {
         ...prev,
         profileImg: "",
       }))
-    }
+    };
 
   return (
     <div className='h-screen w-full flex justify-center items-center bg-[#F4F4F4]'>
@@ -84,7 +93,7 @@ const StepThree = (props) => {
               )}
         </div>
 
-        {!formValue.profileImg.length > 0 ? (
+        {!selectedImg.length > 0 ? (
           <div className="w-[416px] flex flex-col ">
               <div className="flex flex-row gap-[5px]">
                 <p className="text-[14px] font-[700] text-[#334155] ">{"Date of birth"}</p>
@@ -93,10 +102,9 @@ const StepThree = (props) => {
               <input
                 name="profileImg"
                 className={`${
-                  errors.profileImg.length > 0 ? "" : ""
-                }, object-cover w-full border-[1.5px] border-solid border-[#CBD5E1] rounded-[8px] flex items-center text-[16px] font-[500] p-[12px]`}
+                  errors.length > 0 ? "" : ""
+                }, object-cover w-full bg-[#F4F4F4] rounded-[8px] flex justify-center items-center text-[16px] font-[500] p-[12px] h-[200px]`}
                 onChange={handleImageUpload}
-                value={formValue.profileImg}
                 accept='image/*'
                 type='file'
                 // layout='fill'
@@ -107,21 +115,17 @@ const StepThree = (props) => {
             </div>
             ) : (
               <div>
-                <Image src={selectedImg} alt='upload file' onChange={handleImageRemove} />
+                <Image src={selectedImg} alt='upload file' onChange={handleImageRemove} width={200} height={200} />
               </div>
             )
           }
           
       </div>
       </div>
-      <div>
-          <button onClick={handleFormNextStep} className='w-full h-[44px] bg-[#121316] rounded-[6px] flex flex-row justify-center items-center gap-[4px] text-[#FFFFFF] -bottom-0'>
-            <p>Continue</p>
-            <div>3/3</div>
-            <div></div>
-          </button>
-          <button onClick={handleBackStep}>Back</button>
-      </div>
+     <div className='flex flex-row gap-[5px]'>
+               <BackButton handleBackStep={handleBackStep} />
+               <ContinueButton handleFormNextStep={handleFormNextStep} />
+           </div>
     </div>
   </div>
   );

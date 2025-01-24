@@ -1,6 +1,9 @@
 import React from 'react';
 import isStepOneValid from '@/utils/stepOneValidation';
 import InputSection from './InputSection';
+import { ContinueButton } from './ContinueButton';
+import { motion } from 'framer-motion';
+// import Image from 'next/image';
 
 
 const StepOne = (props) => {
@@ -21,7 +24,7 @@ const StepOne = (props) => {
       if (isValid){
         const localData = {
             ...formValue,
-            currenStep: 1,
+            currentStep: 1,
         }
 
         localStorage.setItem("formData", JSON.stringify(localData));
@@ -62,11 +65,7 @@ const StepOne = (props) => {
             
         </div>
         </div>
-        <button onClick={handleFormNextStep} className='w-full h-[44px] bg-[#121316] rounded-[6px] flex flex-row justify-center items-center gap-[4px] text-[#FFFFFF] -bottom-0'>
-          <p>Continue</p>
-          <div>1/3</div>
-          <div></div>
-        </button>
+        <ContinueButton handleFormNextStep={handleFormNextStep} />
       </div>
     </div>
   );

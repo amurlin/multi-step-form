@@ -5,6 +5,7 @@ import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 import FormFinished from "./FormFinished";
+import { AnimatePresence, motion } from "framer-motion";
 
 const MultiStepForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -57,10 +58,23 @@ const MultiStepForm = () => {
   useEffect (() => {
     const data = localStorage.getItem("formData");
     console.log(JSON.parse(data));
-  }, [])
+  }, []);
+
+  const animationVariants = {
+    enter : { opacity: 0, x: 100 },
+    center : { opacity: 1, x: 0 },
+    exit : { opacity: 0, x: -100 },
+  }
 
   return (
-    <div>
+   <AnimatePresence >
+     <motion.div
+      key={currentStep}
+      initial="enter"
+      animate="center"
+      exit="exit"
+      variants={animationVariants}
+      transition={{duration:0.5}}>
       <Step
         errors={formError}
         formValue={formValue}
@@ -70,7 +84,8 @@ const MultiStepForm = () => {
         handleNextStep={handleNextStep}
         handleBackStep={handleBackStep}
       />
-    </div>
+     </motion.div>
+   </AnimatePresence>
   );
 };
 
