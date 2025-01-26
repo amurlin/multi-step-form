@@ -1,14 +1,12 @@
 import React from 'react'
 
 export const ContinueButton = (props) => {
-    const {handleFormNextStep} = props;
+    const { handleFormNextStep, currentStep = 1, totalSteps = 3 } = props;  // Алхам, нийт алхамын тоо авах
 
-  return (
-    <button onClick={handleFormNextStep} className='w-full h-[44px] bg-[#121316] rounded-[6px] flex flex-row justify-center items-center gap-[4px] text-[#FFFFFF] -bottom-0'>
+    return (
+        <button onClick={handleFormNextStep} className='w-full h-[44px] bg-[#121316] rounded-[6px] flex flex-row justify-center items-center gap-[4px] text-[#FFFFFF]'>
             <p>Continue</p>
-            {/* {todos.filter((task) => task.status === "DONE").length} of {todos.length}{" "} */}
-            <div>1/3</div>
-            <div></div>
-          </button>
-  )
+            <div className="text-white">{currentStep} / {totalSteps}</div> {/* Алхам 1/3 */}
+        </button>
+    )
 }

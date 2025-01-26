@@ -65,7 +65,7 @@ const StepOne = (props) => {
             
         </div>
         </div>
-        <ContinueButton handleFormNextStep={handleFormNextStep} />
+        <ContinueButton handleFormNextStep={handleFormNextStep} currentStep={1} totalSteps={3} />
       </div>
     </div>
   );
