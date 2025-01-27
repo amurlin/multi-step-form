@@ -47,22 +47,6 @@ const StepOne = (props) => {
             <InputSection handleChange={handleChange} errors={errors.firstName} title={"First name"} name={"firstName"} placeholder={"Your first name"} value={formValue.firstName} />
             <InputSection handleChange={handleChange} errors={errors.lastName} title={"Last name"} name={"lastName"} placeholder={"Your second name"} value={formValue.lastName} />
             <InputSection handleChange={handleChange} errors={errors.userName} title={"User name"} name={"userName"} placeholder={"Your username"} value={formValue.userName} />
-
-
-            {/* <div className='w-[416px] h-[68px] flex flex-col '>
-                <div className='flex flex-row gap-[5px]'>
-                  <p className='text-[14px] font-[700] text-[#334155] '>First name</p>
-                  <p className='text-[14px] font-[700] text-[#E14942]'>*</p>
-                </div>
-                <input 
-                name={"firstName"}
-                className={`${errors ? "" : ""}, w-full h-[44px] border-[1.5px] border-solid border-[#CBD5E1] rounded-[8px] flex items-center text-[16px] font-[500] p-[12px]`}
-                onChange={handleChange}
-                placeholder='Your first name'/>
-                {errors.firstName.length > 0 && (
-                  <p className='text-red-500'>{errors.firstName}</p>)}
-            </div> */}
-            
         </div>
         </div>
         <ContinueButton handleFormNextStep={handleFormNextStep} currentStep={1} totalSteps={3} />

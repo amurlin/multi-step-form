@@ -132,8 +132,6 @@ const StepThree = (props) => {
 };
 
 export default StepThree;
-
-// import React, { useState } from 'react';
 // import InputSection from './InputSection';
 // import isStepThreeValid from '@/utils/stepThreeValidation';
 // import { ContinueButton } from './ContinueButton';
